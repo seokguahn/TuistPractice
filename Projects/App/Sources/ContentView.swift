@@ -7,64 +7,66 @@ struct ContentView: View {
     @State private var isTapped: Bool = false
     
     var body: some View {
-        NavigationStack {
-            TabView {
-                VStack {
-                    Text("Hello, World!")
-                        .padding()
-                    
-                    CommonView(isTapped: $isTapped)
-                }
-                .tabItem {
-                    Label("Home", systemImage: "flame")
-                }
-                
-                VStack {
+        WithPerceptionTracking {
+            NavigationStack {
+                TabView {
                     VStack {
-                        Text("Counter Count : \(store.count)")
-                            .fontWeight(.semibold)
+                        Text("Hello, World!")
+                            .padding()
                         
-                        HStack {
-                            Button(action: {
-                                store.send(.decrementBtnTapped)
-                            }) {
-                                HStack {
-                                    Text("-")
-                                        .fontWeight(.semibold)
-                                }
-                                .padding(.horizontal, 20)
-                                .padding(.vertical, 5)
-                                .foregroundColor(.white)
-                                .background(Color.red)
-                                .cornerRadius(20)
-                            }
+                        CommonView(isTapped: $isTapped)
+                    }
+                    .tabItem {
+                        Label("Home", systemImage: "flame")
+                    }
+                    
+                    VStack {
+                        VStack {
+                            Text("Counter Count : \(store.count)")
+                                .fontWeight(.semibold)
                             
-                            Button(action: {
-                                store.send(.incrementBtnTapped)
-                            }) {
-                                HStack {
-                                    Text("+")
-                                        .fontWeight(.semibold)
+                            HStack {
+                                Button(action: {
+                                    store.send(.decrementBtnTapped)
+                                }) {
+                                    HStack {
+                                        Text("-")
+                                            .fontWeight(.semibold)
+                                    }
+                                    .padding(.horizontal, 20)
+                                    .padding(.vertical, 5)
+                                    .foregroundColor(.white)
+                                    .background(Color.red)
+                                    .cornerRadius(20)
                                 }
-                                .padding(.horizontal, 20)
-                                .padding(.vertical, 5)
-                                .foregroundColor(.white)
-                                .background(Color.blue)
-                                .cornerRadius(20)
+                                
+                                Button(action: {
+                                    store.send(.incrementBtnTapped)
+                                }) {
+                                    HStack {
+                                        Text("+")
+                                            .fontWeight(.semibold)
+                                    }
+                                    .padding(.horizontal, 20)
+                                    .padding(.vertical, 5)
+                                    .foregroundColor(.white)
+                                    .background(Color.blue)
+                                    .cornerRadius(20)
+                                }
                             }
                         }
                     }
-                }
-                .tabItem {
-                    Label("Counter", systemImage: "drop")
-                }
-            }
-            .navigationDestination(isPresented: $isTapped) {
-                ListView(
-                    store: Store(initialState: ListCore.State()) {
-                        ListCore()
+                    .tabItem {
+                        Label("Counter", systemImage: "drop")
                     }
-                )
+                }
+                .navigationDestination(isPresented: $isTapped) {
+                    ListView(
+                        store: Store(initialState: ListCore.State()) {
+                            ListCore()
+                        }
+                    )
+                }
             }
         }
     }

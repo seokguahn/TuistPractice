@@ -12,20 +12,22 @@ struct ListView: View {
     let store: StoreOf<ListCore>
     
     var body: some View {
-        List(store.users) { user in
-            VStack {
-                Text(user.login)
-                    .font(.title3)
+        WithPerceptionTracking {
+            List(store.users) { user in
+                VStack {
+                    Text(user.login)
+                        .font(.title3)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    print(user.login)
+                }
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .contentShape(Rectangle())
-            .onTapGesture {
-                print(user.login)
+            .padding(.top, 1)
+            .onAppear() {
+                store.send(.factRequest)
             }
-        }
-        .padding(.top, 1)
-        .onAppear() {
-            store.send(.factRequest)
         }
     }
 }
