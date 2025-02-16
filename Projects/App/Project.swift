@@ -15,8 +15,9 @@ let project = Project(
                         "UIColorName": "",
                         "UIImageName": "",
                     ],
-                    "NSLocationWhenInUseUsageDescription": "앱이 위치 정보를 사용하는 이유를 설명하는 문구",
-                    "NSLocationAlwaysAndWhenInUseUsageDescription": "앱이 항상 위치 정보를 사용하는 이유를 설명하는 문구"
+                    "NSLocationAlwaysUsageDescription": "App_Name requires user’s location for better user experience.",
+                    "NSLocationWhenInUseUsageDescription": "App_Name requires user’s location for better user experience.",
+                    "NSLocationAlwaysAndWhenInUseUsageDescription": "App_Name requires user’s location for better user experience."
                 ]
             ),
             sources: ["Sources/**"],
